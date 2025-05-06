@@ -143,7 +143,7 @@ CHANNEL_LAYERS = {
 }
 # Add CORS settings
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React default port
+    "http://localhost:5173",  # React default port
 ]
 # Rest Framework settings
 REST_FRAMEWORK = {

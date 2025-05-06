@@ -1,39 +1,54 @@
-import { useEffect, useRef, useState } from 'react';
-import { WebSocketMessage } from '../types';
+// src/hooks/useWebSocket.ts
+import { useState, useEffect, useCallback } from 'react';
 
 export const useWebSocket = (url: string) => {
-  const ws = useRef<WebSocket | null>(null);
+  const [ws, setWs] = useState<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-  const [lastMessage, setLastMessage] = useState<WebSocketMessage | null>(null);
+  const [lastMessage, setLastMessage] = useState<any>(null);
 
   useEffect(() => {
-    ws.current = new WebSocket(url);
+    console.log('Attempting to connect to WebSocket...'); // Debug log
+    const websocket = new WebSocket(url);
 
-    ws.current.onopen = () => {
+    websocket.onopen = () => {
+      console.log('WebSocket connected!'); // Debug log
       setIsConnected(true);
-      console.log('WebSocket Connected');
     };
 
-    ws.current.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      setLastMessage(message);
-    };
-
-    ws.current.onclose = () => {
+    websocket.onclose = (event) => {
+      console.log('WebSocket disconnected:', event); // Debug log
       setIsConnected(false);
-      console.log('WebSocket Disconnected');
     };
+
+    websocket.onerror = (error) => {
+      console.error('WebSocket error:', error); // Debug log
+    };
+
+    websocket.onmessage = (event) => {
+      console.log('Received message:', event.data); // Debug log
+      try {
+        const data = JSON.parse(event.data);
+        setLastMessage(data);
+      } catch (error) {
+        console.error('Error parsing message:', error);
+      }
+    };
+
+    setWs(websocket);
 
     return () => {
-      ws.current?.close();
+      websocket.close();
     };
   }, [url]);
 
-  const sendMessage = (message: WebSocketMessage) => {
-    if (ws.current?.readyState === WebSocket.OPEN) {
-      ws.current.send(JSON.stringify(message));
+  const sendMessage = useCallback((message: any) => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      console.log('Sending message:', message); // Debug log
+      ws.send(JSON.stringify(message));
+    } else {
+      console.warn('WebSocket is not connected'); // Debug log
     }
-  };
+  }, [ws]);
 
   return { isConnected, lastMessage, sendMessage };
 };
