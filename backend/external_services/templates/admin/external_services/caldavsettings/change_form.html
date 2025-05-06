@@ -1,0 +1,20 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls %}
+
+{% block submit_buttons_bottom %}
+    {{ block.super }}
+    {% if show_sync_button %}
+    <div class="submit-row">
+        <a href="{% url 'admin:caldav-sync' caldav_id %}" class="button" style="background-color: #28a745; color: white;">
+            {% trans "Sync Calendars Now" %}
+        </a>
+    </div>
+    {% endif %}
+    {% if show_discover_button %}
+    <div class="submit-row">
+        <a href="{% url 'admin:caldav-discover' caldav_id %}" class="button" style="background-color: #17a2b8; color: white;">
+            {% trans "Discover Calendars" %}
+        </a>
+    </div>
+    {% endif %}
+{% endblock %}
