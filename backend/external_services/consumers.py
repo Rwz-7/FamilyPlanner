@@ -410,7 +410,7 @@ class WeatherConsumer(AsyncWebsocketConsumer):
                 # For now, return placeholder data
                 # In a real implementation, you would call a weather API here
                 return {
-                    'location': settings.location,
+                    'location': settings.default_location,
                     'temperature': 22,
                     'condition': 'Sunny',
                     'humidity': 65,

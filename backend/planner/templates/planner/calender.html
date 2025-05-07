@@ -1,0 +1,58 @@
+<!-- planner/templates/planner/calendar.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Planner</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+    <!-- Auto refresh every hour -->
+    <meta http-equiv="refresh" content="3600">
+</head>
+<body>
+    <div class="planner-container">
+        <!-- Header with time and date -->
+        <div class="header">
+            <div class="time" id="time">{{ current_time|date:"H:i" }}<sup>{{ current_time|date:"s" }}</sup></div>
+            <div class="date" id="date">{{ today|date:"l, F j" }}</div>
+        </div>
+
+        <!-- Calendar view -->
+        <div class="calendar">
+            <div class="month-header">
+                <div class="month-title">{{ today|date:"F Y" }}</div>
+                <div class="weekdays">
+                    <div class="weekday">M</div>
+                    <div class="weekday">T</div>
+                    <div class="weekday">W</div>
+                    <div class="weekday">T</div>
+                    <div class="weekday">F</div>
+                    <div class="weekday">S</div>
+                    <div class="weekday">S</div>
+                </div>
+            </div>
+
+            <div class="days-grid">
+                {% for week in calendar_weeks %}
+                    {% for day, events in week.items %}
+                        <div class="day {% if day.month != today.month %}other-month{% endif %} {% if day == today.date %}today{% endif %}">
+                            <div class="day-number">{{ day.day }}</div>
+                            <div class="events">
+                                {% for event in events %}
+                                    <div class="event">
+                                        <div class="event-time">{{ event.start_time|date:"g:ia" }}</div>
+                                        <div class="event-title">{{ event.title }}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/calendar.js' %}"></script>
+</body>
+</html>

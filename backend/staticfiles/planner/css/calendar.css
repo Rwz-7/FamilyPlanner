@@ -1,0 +1,88 @@
+/* static/css/calendar.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.planner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+.time {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.date {
+    font-size: 24px;
+}
+
+.month-header {
+    margin-bottom: 10px;
+}
+
+.month-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.day {
+    border: 1px solid #ccc;
+    min-height: 100px;
+    padding: 5px;
+}
+
+.day-number {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.today {
+    background-color: #e6f7ff;
+    border: 1px solid #1890ff;
+}
+
+.other-month {
+    background-color: #f9f9f9;
+    color: #aaa;
+}
+
+.event {
+    background-color: #4096ff;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+    font-size: 12px;
+}
+
+.event-time {
+    font-size: 10px;
+    opacity: 0.9;
+}

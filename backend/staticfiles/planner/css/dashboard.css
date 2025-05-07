@@ -1,0 +1,128 @@
+/* static/css/dashboard.css */
+:root {
+    --bg-color: #0a1631;
+    --text-color: #ffffff;
+    --highlight-color: #e74c3c;
+    --event-bg: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+}
+
+.planner-container {
+    display: flex;
+    height: 100vh;
+    background-image: url('../img/night-sky.jpg');
+    background-size: cover;
+}
+
+.left-panel {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.time-display {
+    font-size: 5rem;
+    font-weight: 300;
+}
+
+.date-display {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.weather-display {
+    margin-top: auto;
+}
+
+.current-temp {
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+}
+
+.forecast {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.forecast-day {
+    margin-right: 1.5rem;
+    text-align: center;
+}
+
+.calendar-panel {
+    flex: 2;
+    background-color: rgba(0, 10, 30, 0.8);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.month-display {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 0.5rem;
+}
+
+.weekday {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.calendar-day {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    padding: 0.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.today {
+    background-color: var(--highlight-color);
+}
+
+.day-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.event {
+    background-color: var(--event-bg);
+    padding: 3px 5px;
+    border-radius: 3px;
+    margin-bottom: 3px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.event-time {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    margin-right: 3px;
+}

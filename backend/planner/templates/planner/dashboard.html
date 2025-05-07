@@ -1,0 +1,69 @@
+<!-- planner/templates/planner/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ family.name }} - Family Planner</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'planner/css/calendar.csss' %}">
+    <!-- Auto refresh every hour -->
+    <meta http-equiv="refresh" content="3600">
+</head>
+<body>
+    <div class="planner-container">
+        <!-- Left side: Time, Date, Weather -->
+        <div class="left-panel">
+            <div class="time-display" id="time">{{ current_time|date:"H:i" }}<sup>{{ current_time|date:"s" }}</sup></div>
+            <div class="date-display" id="date">{{ today|date:"l, F j" }}</div>
+
+            {% if has_weather %}
+            <div class="weather-display" id="weather-widget">
+                <div class="current-temp">
+                    <span id="current-temp">--</span>°
+                    <span class="weather-icon" id="weather-icon">☀️</span>
+                </div>
+
+                <div class="forecast" id="forecast">
+                    <!-- Weather forecast will be loaded via JavaScript -->
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right side: Calendar -->
+        <div class="calendar-panel">
+            <div class="month-display">
+                <span id="current-month">{{ today|date:"F Y" }}</span>
+            </div>
+
+            <div class="calendar-header">
+                <div class="weekday">M</div>
+                <div class="weekday">T</div>
+                <div class="weekday">W</div>
+                <div class="weekday">T</div>
+                <div class="weekday">F</div>
+                <div class="weekday">S</div>
+                <div class="weekday">S</div>
+            </div>
+
+            <div class="calendar-grid">
+                {% for date, day_events in calendar_days.items %}
+                <div class="calendar-day {% if date == today.date %}today{% endif %}">
+                    <div class="day-number">{{ date.day }}</div>
+
+                    {% for event in day_events %}
+                    <div class="event" style="background-color: {% if event.priority == 'high' %}#e74c3c{% elif event.priority == 'medium' %}#3498db{% else %}#2ecc71{% endif %};">
+                        <span class="event-time">{{ event.start_time|date:"g:ia" }}</span>
+                        <span class="event-title">{{ event.title }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>
